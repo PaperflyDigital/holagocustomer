@@ -42,7 +42,7 @@ export default function NavigationBar() {
       }`}
     >
       <div className="container mx-auto">
-        <div className="hidden md:flex justify-between items-center py-4">
+        <div className="hidden md:flex justify-between items-center py-4 px-10">
           <div className="flex items-center">
             <Image src={logo} width={150} height={150} alt="Logo" />
           </div>

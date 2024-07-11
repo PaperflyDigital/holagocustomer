@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Vintage() {
   return (
     <section className="container mx-auto ">
-      <div className="grid grid-cols-2 justify-between items-center gap-10 py-20">
+      <div className="grid grid-cols-2 justify-between items-center gap-10 py-20 px-10">
         <div className="grid grid-cols-3 justify-between items-center">
           <Image src={pan} alt="earphone" />
           <Image src={pan} alt="earphone" />

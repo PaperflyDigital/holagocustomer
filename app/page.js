@@ -7,13 +7,15 @@ import Vintage from "@/components/pageSection/HomePage/Vintage";
 
 export default function Home() {
   return (
-    <main className="mx-auto">
-      <TopBanner />
-      <MoreExplore />
-      <LatestProducts />
-      <Refresh />
-      <Trading />
-      <Vintage />
+    <main className="">
+ 
+        <TopBanner />
+        <MoreExplore />
+        <LatestProducts />
+        <Refresh />
+        <Trading />
+        <Vintage />
+ 
     </main>
   );
 }

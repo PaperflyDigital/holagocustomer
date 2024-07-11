@@ -4,7 +4,7 @@ import trading from "@/public/images/trading.png";
 export default function Trading() {
   return (
     <section className="bg-[#F4F4F4]">
-      <div className="container mx-auto py-20">
+      <div className="container mx-auto py-20 px-10">
         <div className="flex justify-between items-center">
           <h2 className="section-title">Trending Outfits</h2>
           <p className="section-text">Shared by customers, just like you!</p>
