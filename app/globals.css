@@ -4,8 +4,11 @@
 
 :root {
   --primary-color: #db7f34;
-  --secondary-color: #bccc2e;
+  --secondary-color: #7A7A7A;
   --tertiary-color: #f7f7f7;
+}
+.secondary-color {
+  color: var(--secondary-color);
 }
 
 /* ----------------------------------------
