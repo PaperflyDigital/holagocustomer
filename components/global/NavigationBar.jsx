@@ -1,5 +1,5 @@
 "use client";
-import logo from "@/public/images/logo.png";
+import logo from "@/public/images/Logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -37,7 +37,7 @@ export default function NavigationBar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full transition-colors duration-300 ${
+      className={`fixed top-0 left-0 w-full transition-colors duration-300 z-50 ${
         isScrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
@@ -61,7 +61,7 @@ export default function NavigationBar() {
                   className="bg-black text-white px-2 rounded-full"
                   href="/"
                 >
-                  JUST DROPPED{" "}
+                  just dropped
                 </Link>
               </li>
             </ul>
@@ -75,7 +75,7 @@ export default function NavigationBar() {
                   href="/"
                 >
                   {" "}
-                  BEST SELLING{" "}
+                 best selling
                 </Link>
               </li>
             </ul>
