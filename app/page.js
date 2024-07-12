@@ -8,14 +8,12 @@ import Vintage from "@/components/pageSection/HomePage/Vintage";
 export default function Home() {
   return (
     <main className="">
- 
-        <TopBanner />
-        <MoreExplore />
-        <LatestProducts />
-        <Refresh />
-        <Trading />
-        <Vintage />
- 
+      <TopBanner />
+      <MoreExplore />
+      <LatestProducts />
+      <Refresh />
+      <Trading />
+      <Vintage />
     </main>
   );
 }

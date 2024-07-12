@@ -1,8 +1,9 @@
-import { Jost } from 'next/font/google';
+import { Jost } from "next/font/google";
 import "./globals.css";
 import NavigationBar from "@/components/global/NavigationBar";
+import NavigationFooter from "@/components/global/navigationFooter";
 
-const jost = Jost({ subsets: ['latin'] });
+const jost = Jost({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -15,7 +16,8 @@ export default function RootLayout({ children }) {
       <body className={jost.className}>
         <NavigationBar />
         {children}
-        </body>
+        <NavigationFooter />
+      </body>
     </html>
   );
 }
