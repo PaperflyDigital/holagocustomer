@@ -1,7 +1,8 @@
 import { Jost } from "next/font/google";
 import "./globals.css";
 import NavigationBar from "@/components/global/NavigationBar";
-import NavigationFooter from "@/components/global/navigationFooter";
+import NavigationFooter from "@/components/global/NavigationFooter";
+import CopyRight from "@/components/global/CopyRight";
 
 const jost = Jost({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
         <NavigationBar />
         {children}
         <NavigationFooter />
+        <CopyRight />
       </body>
     </html>
   );
