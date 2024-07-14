@@ -4,7 +4,7 @@
 
 :root {
   --primary-color: #db7f34;
-  --secondary-color: #7A7A7A;
+  --secondary-color: #7a7a7a;
   --tertiary-color: #f7f7f7;
 }
 .secondary-color {
@@ -29,6 +29,18 @@
 .hidden_scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+@media screen and (max-width: 768px) {
+  .section-title {
+    font-size: 1.2rem;
+  }
+  .section-text {
+    font-size: 0.9rem;
+  }
+  .section-heading {
+    font-size: 2rem;
+  }
 }
 
 /* ----------------------------------------

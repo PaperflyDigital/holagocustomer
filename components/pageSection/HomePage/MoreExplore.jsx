@@ -28,12 +28,12 @@ export default function MoreExplore() {
     if (!container.isDown) return;
     e.preventDefault();
     const x = e.pageX - container.offsetLeft;
-    const walk = (x - container.startX) * 2; // scroll-fast
+    const walk = (x - container.startX) * 2; 
     container.scrollLeft = container.scrollLeft - walk;
   };
   return (
     <section className="container mx-auto">
-      <div className="py-20 px-10">
+      <div className="py-20 pl-10">
         <div className="grid grid-cols-1 md:grid-cols-3 justify-between items-center">
           <div>
             <h2 className="section-title">More to</h2>
