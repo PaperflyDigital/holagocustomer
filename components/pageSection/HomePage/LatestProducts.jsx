@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
-import pci from "@/public/images/pci.png";
+import pci from "@/public/images/cuban-cat.png";
 import rarrow from "@/public/images/rarrow.png";
 import { useRef } from "react";
+import Link from "next/link";
 
 export default function LatestProducts() {
   const sliderRef = useRef(null);
@@ -19,9 +20,9 @@ export default function LatestProducts() {
     }
   };
   return (
-    <section className="container mx-auto">
-      <div className="px-10">
-        <div className="flex justify-between items-center">
+    <section className="container mx-auto my-5">
+      <div className="">
+        <div className="flex justify-between items-center flex-col md:flex-row">
           <h2 className="section-title">Latest Products</h2>
           <p className="section-text">Get the best for you!</p>
         </div>
@@ -29,16 +30,16 @@ export default function LatestProducts() {
         <div className="relative">
           <div
             ref={sliderRef}
-            className="flex space-x-5 overflow-x-scroll hidden_scrollbar"
+            className="md:flex grid grid-cols-2 gap-3 my-5  md:overflow-x-scroll hidden_scrollbar"
           >
             {[...Array(15)].map((_, index) => (
               <div
                 key={index}
-                className="min-w-[50%] md:min-w-[25%] lg:min-w-[20%] my-5"
+                className=""
               >
                 <div className="">
                   <Image
-                    className="border rounded-md"
+                    className="border rounded-md md:min-w-[200px] xl:min-w-[300px]"
                     src={pci}
                     alt="earphone"
                   />
@@ -50,8 +51,11 @@ export default function LatestProducts() {
               </div>
             ))}
           </div>
+          <div className="flex md:hidden justify-center">
 
-          <div className="absolute top-5 right-0">
+            <Link href="" className="font-semibold underline">View All Products</Link>
+          </div>
+          <div className="md:absolute top-5 right-0 hidden ">
             <div className="flex flex-col justify-end">
               <button
                 className="btn-primary border-2 border-black p-3 w-10 h-10"

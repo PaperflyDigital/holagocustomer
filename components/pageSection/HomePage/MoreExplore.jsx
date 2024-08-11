@@ -1,119 +1,108 @@
 "use client";
 import Image from "next/image";
 import catPic from "@/public/images/cuban-cat.png";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 
 export default function MoreExplore() {
-  const scrollContainerRef = useRef(null);
-
-  const handleMouseDown = (e) => {
-    const container = scrollContainerRef.current;
-    container.isDown = true;
-    container.startX = e.pageX - container.offsetLeft;
-    container.scrollLeft = container.scrollLeft;
-  };
-
-  const handleMouseLeave = () => {
-    const container = scrollContainerRef.current;
-    container.isDown = false;
-  };
-
-  const handleMouseUp = () => {
-    const container = scrollContainerRef.current;
-    container.isDown = false;
-  };
-
-  const handleMouseMove = (e) => {
-    const container = scrollContainerRef.current;
-    if (!container.isDown) return;
-    e.preventDefault();
-    const x = e.pageX - container.offsetLeft;
-    const walk = (x - container.startX) * 2; 
-    container.scrollLeft = container.scrollLeft - walk;
-  };
+  const [renderCarousel, setrenderCarousel] = useState(false)
+  const images = [
+    {
+      img: catPic,
+      title: 'Tshirt'
+    },
+    {
+      img: catPic,
+      title: 'Tshirt'
+    },
+    {
+      img: catPic,
+      title: 'Tshirt'
+    },
+    {
+      img: catPic,
+      title: 'Tshirt'
+    },
+    {
+      img: catPic,
+      title: 'Tshirt'
+    },
+    {
+      img: catPic,
+      title: 'Tshirt'
+    },
+  ]
+//   setTimeout(() => {
+// setrenderCarousel(true)
+//   }, 1000);
   return (
-    <section className="container mx-auto">
-      <div className="py-20 pl-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 justify-between items-center">
-          <div>
-            <h2 className="section-title">More to</h2>
-            <h2 className="section-heading">Explore</h2>
-            <p className="section-text">
+    <section className=" mx-auto container">
+      <div className="py-20 ">
+        <div className="flex flex-col md:flex-row gap-20 justify-between items-center  overflow-hidden">
+          <div className="text-center md:text-left">
+            <h2 className="section-title">More To</h2>
+            <h2 className="text-6xl">Explore</h2>
+            <p className="mt-5 max-w-[200px]">
               Discover curated edits and seasonal collections
             </p>
           </div>
-          <div className="md:col-span-2">
-            <div
-              className="w-full overflow-x-auto hidden_scrollbar"
-              ref={scrollContainerRef}
-              onMouseDown={handleMouseDown}
-              onMouseLeave={handleMouseLeave}
-              onMouseUp={handleMouseUp}
-              onMouseMove={handleMouseMove}
+          <div 
+          // className={`${renderCarousel ? 'opacity-100': 'opacity-0'}`}
+          >
+
+          <div className="w-[350px] sm:w-[450px] md:w-[410px] lg:w-[650px] xl:w-[900px] ">
+            
+            <Swiper
+              breakpoints={{
+
+                0: {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 10,
+                },
+              }}
+
+              loop={true}
+              autoplay={{
+                delay: 500,
+                disableOnInteraction: false,
+              }}
+
+              navigation={true}
+              modules={[Autoplay, Navigation]}
+              className="h-auto w-full"
             >
-              <div className="flex gap-5">
-                <div className="w-[410px] h-[550px] flex-shrink-0 rounded-lg relative group">
-                  <Image
-                    src={catPic}
-                    alt="Picture of the author"
-                    className="rounded-lg object-cover w-full h-full"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 rounded-lg">
-                    <h2 className="section-heading text-center">
-                      Cuban Shirts
-                    </h2>
-                  </div>
-                </div>
-                <div className="w-[410px] h-[550px] flex-shrink-0 rounded-lg relative group">
-                  <Image
-                    src={catPic}
-                    alt="Picture of the author"
-                    className="rounded-lg object-cover w-full h-full"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 rounded-lg">
-                    <h2 className="section-heading text-center">
-                      Cuban Shirts
-                    </h2>
-                  </div>
-                </div>
-                <div className="w-[410px] h-[550px] flex-shrink-0 rounded-lg relative group">
-                  <Image
-                    src={catPic}
-                    alt="Picture of the author"
-                    className="rounded-lg object-cover w-full h-full"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 rounded-lg">
-                    <h2 className="section-heading text-center">
-                      Cuban Shirts
-                    </h2>
-                  </div>
-                </div>
-                <div className="w-[410px] h-[550px] flex-shrink-0 rounded-lg relative group">
-                  <Image
-                    src={catPic}
-                    alt="Picture of the author"
-                    className="rounded-lg object-cover w-full h-full"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 rounded-lg">
-                    <h2 className="section-heading text-center">
-                      Cuban Shirts
-                    </h2>
-                  </div>
-                </div>
-                <div className="w-[410px] h-[550px] flex-shrink-0 rounded-lg relative group">
-                  <Image
-                    src={catPic}
-                    alt="Picture of the author"
-                    className="rounded-lg object-cover w-full h-full"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 rounded-lg">
-                    <h2 className="section-heading text-center">
-                      Cuban Shirts
-                    </h2>
-                  </div>
-                </div>
-              </div>
-            </div>
+              {
+                images.map((image, i) => <div key={i}>
+                  <SwiperSlide className=" ">
+                    <div className="relative">
+                      <Image
+                        src={catPic}
+                        alt="Picture of the author"
+                        className="rounded-lg h-full object-cover"
+                      />
+                      <div className="black_bg_gradiant_d_to_u absolute w-full bottom-0 rounded-b-lg ">
+
+                        <h2 className="text-3xl sm:text-2xl 2xl:text-3xl text-white text-center pt-10 pb-5">
+                          Cuban Shirts
+                        </h2>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                </div>)
+              }
+
+
+            </Swiper>
+          </div>
           </div>
         </div>
       </div>

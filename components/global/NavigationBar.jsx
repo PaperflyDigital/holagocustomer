@@ -1,167 +1,181 @@
 "use client";
-import logo from "@/public/images/Logo.png";
+import logo from "@/public/images/Logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaSearch,
-  FaShoppingCart,
-  FaUser,
-  FaHeart,
-  FaBars,
-} from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { FaSearch, FaBars } from "react-icons/fa";
+import { IoSearchOutline } from 'react-icons/io5';
+import { RiHome3Line, RiHome6Line, RiShoppingBag3Line } from 'react-icons/ri';
+import { LuHeart } from 'react-icons/lu';
+import { PiUserCircleLight } from 'react-icons/pi';
+import { useEffect, useRef, useState } from "react";
+import useClickOutside from "@/hooks/useClickOutside";
 
 export default function NavigationBar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchBarOpen, setSearchBarOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+  const routes = [
+    { name: 'Man', url: '/', status: '', statusColor: '' },
+    { name: 'T-Shirts', url: '/', status: 'Just Dropped', statusColor: 'bg-black' },
+    { name: 'Cuban Shirts', url: '/', status: 'Best Selling', statusColor: 'bg-primary' },
+  ];
+
+  const NavbarLink = ({ route }) => {
+    const [hover, setHover] = useState(false);
+    const [renderedText, setRenderedText] = useState("");
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+      if (hover && currentIndex < route.status.length) {
+        const timeout = setTimeout(() => {
+          setRenderedText(prev => prev + route.status[currentIndex]);
+          setCurrentIndex(prev => prev + 1);
+        }, 10);
+        return () => clearTimeout(timeout);
       }
-    };
+      // Reset text when not hovered
+      if (!hover) {
+        setRenderedText("");
+        setCurrentIndex(0);
+      }
+    }, [currentIndex, route.status, hover]);
 
-    window.addEventListener("scroll", handleScroll);
+    return (
+      <Link href={route.url} className="flex items-center gap-1"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        <p>{route.name}</p>
+        {route.status && (
+          <div className={`rounded-full ${route.statusColor} ${!hover && 'size-3'}`}>
+            <p className={`text-white text-[11px] px-2 ${hover ? 'block' : 'hidden'} duration-300`}>
+              {renderedText.split("").map((letter, i) => (
+                <span key={i} className="animate-rendering">{letter}</span>
+              ))}
+            </p>
+          </div>
+        )}
+      </Link>
+    );
+  }
+  const searchInputdivRef = useRef();
+  const searchInputRef = useRef();
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+  useClickOutside(searchInputdivRef, () => {
+    setSearchBarOpen(false)
+  })
+  useEffect(() => {
+    if (searchBarOpen) {
+      searchInputRef.current.focus();
+    }
+  }, [searchBarOpen]);
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full transition-colors duration-300 z-50 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto">
-        <div className="hidden md:flex justify-between items-center py-4 px-10">
-          <div className="flex items-center">
-            <Image src={logo} width={150} height={150} alt="Logo" />
-          </div>
-          <div className="flex items-center justify-between text-sm font-semibold">
-            <ul className="">
-              <li>
-                <Link href="/"> Man </Link>
-              </li>
-            </ul>
-            <ul className="flex justify-between items-center gap-2 mx-5">
-              <li>
-                <Link href="/"> T-Shirts </Link>
-              </li>
-              <li>
-                <Link
-                  className="bg-black text-white px-2 rounded-full"
-                  href="/"
-                >
-                  just dropped
-                </Link>
-              </li>
-            </ul>
-            <ul className="flex justify-between items-center gap-2 mx-5">
-              <li>
-                <Link href="/"> Cuban Shirt </Link>
-              </li>
-              <li>
-                <Link
-                  className="bg-red-500 text-white px-2 rounded-full"
-                  href="/"
-                >
-                  {" "}
-                 best selling
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <div className="flex justify-between items-center gap-2">
-              <Link href="/">
-                <div className="p-2 border border-gray-800 rounded-full">
-                  <FaSearch className="w-4 h-4 text-gray-800" />
-                </div>
-              </Link>
+    <div>
+      <div className="h-[48px] md:h-[60px] bg-[#EBEEEE] fixed top-0 left-0 w-full  z-50">
+        <nav className="  transition-colors duration-300 ">
+          <div className="container">
 
-              <Link href="/">
-                <div className="p-2 border border-gray-800 rounded-full">
-                  <FaUser className="w-4 h-4 text-gray-800" />
+            <div className="hidden md:flex justify-between items-center py-4 ">
+              <div className="flex items-center">
+                <Image src={logo} width={150} height={150} alt="Logo" />
+              </div>
+              <div>
+                <div className="flex items-center gap-5">
+                  {routes.map((route, i) => (
+                    <NavbarLink route={route} key={i} />
+                  ))}
                 </div>
-              </Link>
-
-              <Link href="/">
-                <div className="p-2 border border-gray-800 rounded-full relative">
-                  <FaHeart className="w-4 h-4 text-gray-800" />
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-gray-800 text-white text-xs rounded-full flex items-center justify-center">
-                    0
+              </div>
+              <div className="flex items-center gap-1 relative">
+                <div ref={searchInputdivRef}>
+                  <input ref={searchInputRef} type="text" name="search" className={`rounded-full absolute z-[32143] right-36 focus:outline-none top-0 ${searchBarOpen ? 'w-64 px-2.5 py-1' : 'w-0 p-0'} duration-300`} />
+                </div>
+                <div className="flex justify-between items-center gap-3">
+                  <button onClick={() => setSearchBarOpen(true)}>
+                    <IoSearchOutline size={24} />
+                  </button>
+                  <Link href="/">
+                    <PiUserCircleLight size={28} />
+                  </Link>
+                  <Link href="/">
+                    <div className="relative">
+                      <LuHeart size={23} />
+                      <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">
+                        0
+                      </div>
+                    </div>
+                  </Link>
+                  <Link href="/">
+                    <div className="relative">
+                      <RiShoppingBag3Line size={24} />
+                      <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">
+                        3
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="flex md:hidden justify-between items-center h-full py-2.5">
+              <div className="flex items-center">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="">
+                  <FaBars className="w-4 h-4 text-gray-800" />
+                </button>
+              </div>
+              <div className="flex items-center">
+                <Image src={logo} width={100} height={100} alt="Logo" />
+              </div>
+              <div className="flex items-center order-3">
+                <div ref={searchInputdivRef}>
+                  <input ref={searchInputRef} type="text" className={`rounded-full absolute z-[32143] right-5 focus:outline-none top-[50px] ${searchBarOpen ? 'w-64 px-2.5 py-1' : 'w-0 p-0'} duration-300`} />
+                </div>
+                <button onClick={() => setSearchBarOpen(true)}>
+                  <div className="p-2 border border-gray-800 rounded-full">
+                    <FaSearch className="w-2 h-2 text-gray-800" />
                   </div>
-                </div>
-              </Link>
-
-              <Link href="/">
-                <div className="p-2 border border-gray-800 rounded-full relative">
-                  <FaShoppingCart className="w-4 h-4 text-gray-800" />
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-gray-800 text-white text-xs rounded-full flex items-center justify-center">
-                    0
-                  </div>
-                </div>
-              </Link>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+          <div className={`bg-[#EBEEEE] ${isMenuOpen ? 'mt-0' : '-mt-44'} duration-300`} >
+            <div className="flex flex-col gap-2 p-5">
+              {routes.map((route, i) => (
+                <Link href={'/'} key={i} className="flex items-center gap-2">
+                  <p>{route.name}</p>
+                  <span className={`${route.statusColor} text-white text-[10px] rounded-full px-2`}>{route.status}</span>
+                </Link>
+              ))}
+            </div>
 
-        <div className="flex md:hidden justify-between items-center px-5 py-2">
-          <div className="flex items-center">
-            <button onClick={toggleMenu} className="p-2">
-              <FaBars className="w-4 h-4 text-gray-800" />
-            </button>
           </div>
-          <div className="flex items-center ">
-            <Image src={logo} width={100} height={100} alt="Logo" />
-          </div>
-
-          <div className="flex items-center order-3">
-            <Link href="/">
-              <div className="p-2 border border-gray-800 rounded-full">
-                <FaSearch className="w-2 h-2 text-gray-800" />
+        </nav>
+      </div>
+      <div className=" p-3  w-full fixed bottom-0 z-50">
+        <div className="flex justify-between items-center gap-3 bg-[rgba(236,239,239,0.8)] shadow-md backdrop-blur-sm md:hidden  p-4 rounded-full ">
+          <button>
+            <RiHome6Line size={24} />
+          </button>
+          <Link href="/">
+            <PiUserCircleLight size={28} />
+          </Link>
+          <Link href="/">
+            <div className="relative">
+              <LuHeart size={23} />
+              <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">
+                0
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
+          <Link href="/">
+            <div className="relative">
+              <RiShoppingBag3Line size={24} />
+              <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">
+                3
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
-      {isMenuOpen && (
-        <div className="lg:hidden bg-white shadow-md">
-          <ul className="flex flex-col items-start p-4 space-y-2">
-            <li>
-              <Link href="/">Man</Link>
-            </li>
-            <li>
-              <Link href="/">T-Shirts</Link>
-            </li>
-            <li>
-              <Link className="bg-black text-white px-2 rounded-full" href="/">
-                JUST DROPPED
-              </Link>
-            </li>
-            <li>
-              <Link href="/">Cuban Shirt</Link>
-            </li>
-            <li>
-              <Link
-                className="bg-red-500 text-white px-2 rounded-full"
-                href="/"
-              >
-                BEST SELLING
-              </Link>
-            </li>
-          </ul>
-        </div>
-      )}
-    </nav>
+    </div>
   );
 }

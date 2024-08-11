@@ -1,4 +1,4 @@
-import logo from "@/public/images/Logo.png";
+import logo from "@/public/images/Logo.svg";
 import Image from "next/image";
 import fbLogo from "@/public/icons/Facebook.png";
 import instaLogo from "@/public/icons/Instagram.png";
@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function NavigationFooter() {
   return (
     <section className="container mx-auto my-10">
-      <div className="px-10 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className=" grid grid-cols-1 md:grid-cols-4 gap-5">
         <div>
           <div className="flex items-center mb-5">
             <Image src={logo} width={150} height={150} alt="Logo" />
@@ -48,17 +48,6 @@ export default function NavigationFooter() {
                 alt="Logo"
               />
             </div>
-          </div>
-          <div className="flex space-x-4">
-            <a href="#" className="hover:text-gray-400">
-              <i className="fab fa-facebook bg-white text-black p-2 rounded-full"></i>
-            </a>
-            <a href="#" className="hover:text-gray-400">
-              <i className="fab fa-twitter bg-white text-black p-2 rounded-full"></i>
-            </a>
-            <a href="#" className="hover:text-gray-400">
-              <i className="fab fa-instagram bg-white text-black p-2 rounded-full"></i>
-            </a>
           </div>
         </div>
 

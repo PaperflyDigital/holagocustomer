@@ -3,7 +3,7 @@ import banner from "@/public/images/home_banner.png";
 
 export default function TopBanner() {
   return (
-    <section className="">
+    <section className="mt-[48px] md:mt-[60px]">
       <Image
         src={banner}
         alt="Picture of the author"

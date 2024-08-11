@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function CopyRight() {
   return (
-    <section className="bg-black text-white">
+    <section className="bg-black text-white pb-20 md:pb-0">
       <div className="container mx-auto px-10 py-5">
         <div className="grid grid-cols-2 justify-between items-center ">
           <div>
