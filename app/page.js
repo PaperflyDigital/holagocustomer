@@ -1,19 +1,13 @@
-import LatestProducts from "@/components/pageSection/HomePage/LatestProducts";
-import MoreExplore from "@/components/pageSection/HomePage/MoreExplore";
-import Refresh from "@/components/pageSection/HomePage/Refresh";
-import TopBanner from "@/components/pageSection/HomePage/TopBanner";
-import Trading from "@/components/pageSection/HomePage/Trending";
-import Vintage from "@/components/pageSection/HomePage/Vintage";
+"use client"
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+  
+  router.push('/store')
   return (
     <main className="">
-      <TopBanner />
-      <MoreExplore />
-      <LatestProducts />
-      <Refresh />
-      <Trading />
-      <Vintage />
+  
     </main>
   );
 }

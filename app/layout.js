@@ -1,12 +1,8 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import NavigationBar from "@/components/global/NavigationBar";
-import NavigationFooter from "@/components/global/NavigationFooter";
-import CopyRight from "@/components/global/CopyRight";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import Swiper from "swiper";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -21,38 +17,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // const swiper = new Swiper('.swiper', {
-  //   // Optional parameters
-  //   direction: 'vertical',
-  //   loop: true,
-  
-  //   // If we need pagination
-  //   pagination: {
-  //     el: '.swiper-pagination',
-  //   },
-  
-  //   // Navigation arrows
-  //   navigation: {
-  //     nextEl: '.swiper-button-next',
-  //     prevEl: '.swiper-button-prev',
-  //   },
-  
-  //   // And if we need scrollbar
-  //   scrollbar: {
-  //     el: '.swiper-scrollbar',
-  //   },
-  // });
   return (
     <html lang="en">
       <body className={poppins.variable}>
-        <div className="text-black">
-
-          <NavigationBar />
+        <div className="text-black text-sm md:text-base">
           <div className="">
             {children}
           </div>
-          <NavigationFooter />
-          <CopyRight />
         </div>
       </body>
     </html>
