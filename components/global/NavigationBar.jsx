@@ -10,7 +10,7 @@ import { PiUserCircleLight } from 'react-icons/pi';
 import { useEffect, useRef, useState } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
 
-export default function NavigationBar() {
+export default function NavigationBar({cartOpen}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
 
@@ -105,14 +105,14 @@ export default function NavigationBar() {
                       </div>
                     </div>
                   </Link>
-                  <Link href="/">
+                  <button href="/" onClick={() => cartOpen(true)}>
                     <div className="relative">
                       <RiShoppingBag3Line size={24} />
                       <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">
                         3
                       </div>
                     </div>
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -166,14 +166,14 @@ export default function NavigationBar() {
               </div>
             </div>
           </Link>
-          <Link href="/">
+          <button onClick={() => cartOpen(true)}>
             <div className="relative">
               <RiShoppingBag3Line size={24} />
               <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">
                 3
               </div>
             </div>
-          </Link>
+          </button>
         </div>
       </div>
     </div>
