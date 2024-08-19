@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.variable}>
-        <div className="text-black text-sm md:text-base">
+        <div className="text-black text-sm md:text-base bg-white">
           <div className="">
             {children}
           </div>

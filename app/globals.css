@@ -83,3 +83,22 @@ body {
   color: #156CD7;
   
 }
+
+.product-image-swiper  .swiper-pagination-bullet-active {
+  background: #ffffff !important;
+}
+.product-review-swiper .swiper-pagination-bullet-active {
+  background: #1B1B1B !important;
+}
+.product-review-swiper .swiper-button-prev {
+  display: none;
+}
+.product-review-swiper .swiper-button-next {
+margin-right: -10px;
+
+}
+
+
+.product-image-swiper > .swiper-pagination-bullets, .product-image-swiper > .swiper-pagination-bullets, .product-image-swiper > .swiper-pagination-horizontal {
+  top: 0 !important;
+}

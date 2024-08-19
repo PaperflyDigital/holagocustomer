@@ -82,7 +82,7 @@ export default function NavigationFooter() {
             <input
               type="email"
               placeholder="Type your email address"
-              className="w-full p-2 rounded-l-lg focus:outline-none border"
+              className="w-full p-2 rounded-l-lg focus:outline-none border bg-white"
             />
             <button className="bg-black text-white p-2 rounded-r-lg ">
               <Image src={warray} alt="arrow" />

@@ -6,7 +6,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 
 export default function MoreExplore() {
-  const [renderCarousel, setrenderCarousel] = useState(false)
   const images = [
     {
       img: catPic,
@@ -99,7 +98,6 @@ export default function MoreExplore() {
                   </SwiperSlide>
                 </div>)
               }
-
 
             </Swiper>
           </div>

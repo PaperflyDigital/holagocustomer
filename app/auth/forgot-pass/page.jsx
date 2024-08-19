@@ -44,7 +44,7 @@ const page = () => {
 
                 </> : step === 3 && <>
 
-                    <Image width={100} src={resetPassSuccessIcon} className='mx-auto'></Image>
+                    <Image width={100} src={resetPassSuccessIcon} className='mx-auto' alt=''></Image>
                     <p className='text-xl text-center font-semibold my-2'>New password Setup Done👍</p>
                     <p className='text-sm font-medium text-center'>Now head back and login to your account</p>
                     <Button className={'w-full mt-3'} onClick={() => setstep(1)}>Back to login</Button>

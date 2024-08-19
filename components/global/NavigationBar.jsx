@@ -17,7 +17,7 @@ export default function NavigationBar({cartOpen}) {
   const routes = [
     { name: 'Man', url: '/', status: '', statusColor: '' },
     { name: 'T-Shirts', url: '/', status: 'Just Dropped', statusColor: 'bg-black' },
-    { name: 'Cuban Shirts', url: '/', status: 'Best Selling', statusColor: 'bg-primary' },
+    { name: 'Cuban Shirts', url: '/', status: 'Best Selling', statusColor: 'bg-error' },
   ];
 
   const NavbarLink = ({ route }) => {
@@ -88,7 +88,7 @@ export default function NavigationBar({cartOpen}) {
               </div>
               <div className="flex items-center gap-1 relative">
                 <div ref={searchInputdivRef}>
-                  <input ref={searchInputRef} type="text" name="search" className={`rounded-full absolute z-[32143] right-36 focus:outline-none top-0 ${searchBarOpen ? 'w-64 px-2.5 py-1' : 'w-0 p-0'} duration-300`} />
+                  <input ref={searchInputRef} type="text" name="search" className={`rounded-full absolute bg-white z-[32143] right-36 focus:outline-none top-0 ${searchBarOpen ? 'w-64 px-2.5 py-1' : 'w-0 p-0'} duration-300`} />
                 </div>
                 <div className="flex justify-between items-center gap-3">
                   <button onClick={() => setSearchBarOpen(true)}>
@@ -127,7 +127,7 @@ export default function NavigationBar({cartOpen}) {
               </div>
               <div className="flex items-center order-3">
                 <div ref={searchInputdivRef}>
-                  <input ref={searchInputRef} type="text" className={`rounded-full absolute z-[32143] right-5 focus:outline-none top-[50px] ${searchBarOpen ? 'w-64 px-2.5 py-1' : 'w-0 p-0'} duration-300`} />
+                  <input ref={searchInputRef} type="text" className={`rounded-full absolute border border-[#CCCCC] bg-white z-[32143] right-5 focus:outline-none top-[50px] ${searchBarOpen ? 'w-64 px-2.5 py-1' : 'w-0 p-0'} duration-300`} />
                 </div>
                 <button onClick={() => setSearchBarOpen(true)}>
                   <div className="p-2 border border-gray-800 rounded-full">

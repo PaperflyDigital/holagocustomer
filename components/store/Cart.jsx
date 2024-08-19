@@ -7,7 +7,7 @@ import Button from '../global/Button'
 
 const Cart = ({ open, setOpen }) => {
     return (
-        <div className={`fixed top-0 w-full sm:max-w-[350px] z-[999] bg-white h-screen shadow-2xl ${open ? 'right-0' : '-right-[500px]'} duration-300`}>
+        <div className={`fixed top-0 w-full sm:max-w-[350px] z-[999] bg-white h-screen shadow-2xl ${open ? 'right-0' : '-right-[700px] sm:-right-[500px]'} duration-300`}>
             <div className='p-3 flex flex-col justify-between h-full'>
                 <div className=''>
                     <div className='flex justify-between'>
@@ -16,7 +16,7 @@ const Cart = ({ open, setOpen }) => {
                     </div>
                     <div className='flex mt-5 gap-3 border border-[#EEEEEE] rounded-xl'>
                         <div className='w-2/5'>
-                            <Image src={img} className='rounded-s-xl object-cover'></Image>
+                            <Image src={img} className='rounded-s-xl object-cover' alt=''></Image>
                         </div>
                         <div className='space-y-2 mt-2 text-sm font-medium'>
                             <p className=''>Men’s Polo Shirt (PR0002)</p>

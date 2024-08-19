@@ -7,13 +7,14 @@ import React, { useState } from 'react'
 
 const layout = ({ children }) => {
   const [open, setopen] = useState(false);
-  console.log(open)
   return (
     <div>
-
       <NavigationBar cartOpen={setopen}/>
       <Cart setOpen={setopen} open={open}/>
+      <div className='mt-[48px] md:mt-[60px]'>
       {children}
+
+      </div>
 
       <NavigationFooter />
       <CopyRight />

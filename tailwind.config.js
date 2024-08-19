@@ -9,11 +9,16 @@ module.exports = {
     extend: {
       colors: {
         black: '#2C2C2C',
-        "error-100" : "#00000",
+        error: '#FF404B',
         offWhite: '#F6F7F9',
         blue: '#156CD7'
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    base: false,
+    utilities: false,
+    components: false,
+  },
+  plugins: [require('daisyui'),],
 };
