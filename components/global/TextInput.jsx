@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextInput = ({ label, id, name, type = 'text', className, placeholder, ...etc }) => {
+const TextInput = ({ label, id, name, type = 'text', className, placeholder, rounded='xl', ...etc }) => {
     return (
         <div>
             <div>
@@ -12,7 +12,7 @@ const TextInput = ({ label, id, name, type = 'text', className, placeholder, ...
                         type={type}
                         name={name}
                         spellCheck='false'
-                        className={`block w-full bg-white placeholder:text-sm md:placeholder:text-base rounded-xl p-2 border-[1.5px] border-gray-200 focus:border-gray-300 focus:outline-none focus:border-[1.5px] focus:ring-0 ${className}`}
+                        className={`block w-full bg-white placeholder:text-sm md:placeholder:text-base rounded-${rounded} p-2 border-[1.5px] border-gray-200 focus:border-gray-300 focus:outline-none focus:border-[1.5px] focus:ring-0 ${className}`}
                         {...etc}
                     />
                 </div>

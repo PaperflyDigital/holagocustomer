@@ -11,6 +11,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 import CheckBoxInput from '@/components/global/CheckBoxInput'
 import Button from '@/components/global/Button'
 import TextInput from '@/components/global/TextInput'
+import TextInputWithButton from '@/components/global/TextInputWithButton'
 
 const page = () => {
     const [open, setopen] = useState(false);
@@ -108,9 +109,8 @@ const page = () => {
 
                     <div className='flex items-end'>
                         <div className='w-full'>
-                            <TextInput label={'Do you have a promotional code?'} placeholder={'Enter code'} className={'rounded-r-none'} />
+                            <TextInputWithButton buttonClass='px-5 bg-black text-white' rounded='full' buttonText='Apply' label={'Do you have a promotional code?'} placeholder={'Enter code'} className={'rounded-r-none'} />
                         </div>
-                        <Button className={'h-min rounded-s-none'}>Apply</Button>
                     </div>
                 </div>
             </div>

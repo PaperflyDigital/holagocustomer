@@ -2,10 +2,10 @@
 import React, { useState } from 'react'
 import OTPInput from 'react-otp-input'
 
-const OtpInput = () => {
+const OtpInput = ({className}) => {
     const [otp, setOtp] = useState('')
     return (
-        <div className='otp-field flex justify-center'>
+        <div className={`otp-field flex justify-center ${className}`}>
             <OTPInput
                 value={otp}
                 onChange={setOtp}

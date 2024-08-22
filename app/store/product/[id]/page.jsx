@@ -14,7 +14,7 @@ const page = () => {
   const pagination = {
     clickable: true,
     renderBullet: function (index, className) {
-      return '<span class="' + className + ' !w-[15%] !rounded-xl"></span>';
+      return '<span className="' + className + ' !w-[15%] !rounded-xl"></span>';
     },
   };
 
@@ -64,9 +64,6 @@ const page = () => {
       </div>
       <div>
         <MoreProducts />
-      </div>
-      <div className='h-px mt-5 w-full bg-gradient-to-r from-transparent via-black/50 to-transparent'>
-
       </div>
     </div>
   )

@@ -9,6 +9,7 @@ import { IoArrowBack } from 'react-icons/io5';
 import img from '@/public/images/rtk.png'
 import eliteImg from '@/public/images/ELITE_1.png'
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import TextInputWithButton from '@/components/global/TextInputWithButton';
 
 const page = () => {
     const [open, setopen] = useState(false);
@@ -21,13 +22,13 @@ const page = () => {
                 <div className='w-full lg:w-1/2 '>
                     <IoArrowBack size={30} />
                     <p className='text-xl my-2 text-black font-medium'>Contact Info</p>
-                    <TextInput label={'Email'} />
+                    <TextInput label={'Email'} rounded='full' />
                     <p className='text-xl mt-8  text-black font-medium'>Shipping Address</p>
                     <div className='space-y-2 mt-3 mb-5'>
-                        <TextInput label={'Your Name'} />
-                        <TextInput label={'Phone number'} />
-                        <TextInput label={'Address'} />
-                        <TextInput label={'Area'} />
+                        <TextInput label={'Your Name'} rounded='full' />
+                        <TextInput label={'Phone number'} rounded='full' />
+                        <TextInput label={'Address'} rounded='full' />
+                        <TextInput label={'Area'} rounded='full' />
                     </div>
                     <Button className={'w-full !rounded-full '}>Proceed to payment</Button>
                 </div>
@@ -49,24 +50,17 @@ const page = () => {
                         <p>৳1,400</p>
                     </div>
                     <hr className='my-5' />
-                    <div className='flex items-end'>
-                        <div className='w-full'>
-                            <TextInput label={'Do you have a promotional code?'} placeholder={'Enter code'} className={'rounded-r-none'} />
-                        </div>
-                        <Button className={'h-min rounded-s-none'}>Apply</Button>
-                    </div>
+                    {/* <TextInput label={'Do you have a promotional code?'} placeholder={'Enter code'} className={'rounded-r-none'} /> */}
+                    <TextInputWithButton buttonText='Apply' rounded='full' buttonClass='bg-black text-white px-5' label={'Do you have a promotional code?'} placeholder={'Enter code'} className={'rounded-r-none'} />
                     <hr className='my-5' />
                     <div>
-                        <div className='flex items-center gap-3'>
+                        <div className='flex items-center gap-3 mb-2'>
                             <Image className='size-16' src={eliteImg} alt=''></Image>
                             <p>You have 50,000 club points worth ৳5,000!</p>
                         </div>
-                        <div className='flex items-end mt-4'>
-                            <div className='w-full'>
-                                <TextInput placeholder={'Enter points amount'} className={'rounded-r-none'} />
-                            </div>
-                            <Button className={'h-min rounded-s-none'}>Redeem</Button>
-                        </div>
+
+                        <TextInputWithButton buttonText='Redeem' rounded='full' buttonClass='bg-black text-white px-5' placeholder={'Enter points amount'}  className={'rounded-r-none'} />
+
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import "./globals.css";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -20,7 +21,36 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.variable}>
-        <div className="text-black text-sm md:text-base bg-white">
+        <Toaster
+          toastOptions={{
+            success: {
+              style: {
+                border: "1px solid #EEEEEE",
+                borderRadius: "60px",
+                fontWeight: 500
+              },
+              iconTheme: {
+                primary: 'black',
+                secondary: 'white',
+              
+              },
+
+            },
+            error: {
+              style: {
+                border: "1px solid #EEEEEE",
+                borderRadius: "60px",
+                fontWeight: 500
+              },
+              iconTheme: {
+                primary: 'black',
+                secondary: 'white',
+              
+              },
+            },
+          }}
+        />
+        <div className="text-black text-sm md:text-base bg-white min-h-screen">
           <div className="">
             {children}
           </div>

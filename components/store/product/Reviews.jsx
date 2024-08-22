@@ -9,7 +9,7 @@ const Reviews = () => {
     const pagination = {
         clickable: true,
         renderBullet: function (index, className) {
-            return '<span class="' + className + ' !w-[15%] !rounded-xl"></span>';
+            return '<span className="' + className + ' !w-[15%] !rounded-xl"></span>';
         },
     };
     return (
