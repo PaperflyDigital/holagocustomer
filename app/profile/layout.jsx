@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
         { icon: <BiLogOut />, text: 'Logout' },
     ];
     useEffect(() => {
-        const url = new URL(window.location);
+        const url = new URL(window?.location);
         url.searchParams.set('screen', currentScreenItem);
         window.history.replaceState({}, '', url);
     }, [currentScreenItem]);

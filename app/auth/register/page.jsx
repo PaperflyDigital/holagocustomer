@@ -28,21 +28,21 @@ const page = () => {
             phone: "",
             role: "CUS"
         };
-        const validationResult = validateContact(contact.value);
-        if (validationResult.valid) {
-            if (validationResult.type === 'email') {
-                data.email = contact.value;
-            } else if (validationResult.type === 'phone') {
-                data.phone = contact.value.replace(/\D/g, '');
-            }
-        } else {
-            return toast.error("Invalid email or phone number");
-        }
-        if (password.value !== rPassword.value) {
-            return toast.error("Passwords don't match");
-        }
-        data.password = password.value;
-        console.log(data);
+        // const validationResult = validateContact(contact.value);
+        // if (validationResult.valid) {
+        //     if (validationResult.type === 'email') {
+        //         data.email = contact.value;
+        //     } else if (validationResult.type === 'phone') {
+        //         data.phone = contact.value.replace(/\D/g, '');
+        //     }
+        // } else {
+        //     return toast.error("Invalid email or phone number");
+        // }
+        // if (password.value !== rPassword.value) {
+        //     return toast.error("Passwords don't match");
+        // }
+        // data.password = password.value;
+        // console.log(data);
         setStep(1)
     };
     const handleOtpVerify = (e) => {
@@ -55,13 +55,13 @@ const page = () => {
                 step === 0 ? <div>
                     <p className='text-xl font-semibold text-center'>Create your account</p>
                     <form onSubmit={handleSubmit} className='w-full mt-5 space-y-3'>
-                        <TextInput placeholder={'Email Address or Phone Mumber'} name={'contact'}></TextInput>
-                        <TextInput placeholder={'Enter Password'} name={'password'}></TextInput>
-                        <TextInput placeholder={'Re-Enter Password'} name={'rPassword'}></TextInput>
+                        <TextInput placeholder={'Phone Number'} name={'contact'}></TextInput>
+                        {/* <TextInput placeholder={'Enter Password'} name={'password'}></TextInput>
+                        <TextInput placeholder={'Re-Enter Password'} name={'rPassword'}></TextInput> */}
                         <TextInput placeholder={'Full Name'} name={'name'}></TextInput>
-                        <div className='flex justify-between items-center'>
+                        {/* <div className='flex justify-between items-center'>
                             <CheckBoxInput label={'Remember me'} id={'remC'} />
-                        </div>
+                        </div> */}
                         <div className='mt-2 space-y-2'>
                             <Button variant='primary' className={'w-full'}>Sign up</Button>
                         </div>
