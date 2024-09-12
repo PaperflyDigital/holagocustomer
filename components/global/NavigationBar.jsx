@@ -9,11 +9,12 @@ import { LuHeart } from 'react-icons/lu';
 import { PiUserCircleLight } from 'react-icons/pi';
 import { useEffect, useRef, useState } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
+import { useAuth } from "@/utils/functions";
 
-export default function NavigationBar({cartOpen}) {
+export default function NavigationBar({ cartOpen }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
-
+const {auth} = useAuth()
   const routes = [
     { name: 'Man', url: '/', status: '', statusColor: '' },
     { name: 'T-Shirts', url: '/', status: 'Just Dropped', statusColor: 'bg-black' },
@@ -94,7 +95,7 @@ export default function NavigationBar({cartOpen}) {
                   <button onClick={() => setSearchBarOpen(true)}>
                     <IoSearchOutline size={24} />
                   </button>
-                  <Link href="/">
+                  <Link href={auth.id ? '/profile': '/auth/login'}>
                     <PiUserCircleLight size={28} />
                   </Link>
                   <Link href="/">

@@ -1,7 +1,7 @@
 import {  configureStore } from '@reduxjs/toolkit';
-import { combinedReducers } from './combinedReducers';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { combinedReducers } from './combinedReducers';
 
 const persistConfig = {
     key: 'root',

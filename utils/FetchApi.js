@@ -4,15 +4,15 @@ import toast from "react-hot-toast";
 export const FetchApi = async ({
     method = 'get',
     url = '',
-    data = {},
+    body = {},
     callback = () => { },
     isToast = false
 }) => {
     const instance = axios.create({
         baseURL: process.env.NEXT_PUBLIC_BASE_API,
-        headers: {
-            'Authorization': `Bearer ${store.getState().auth?.user?.token}`,
-        }
+        // headers: {
+        //     'Authorization': `Bearer ${store.getState().auth?.user?.token}`,
+        // }
     });
 
     let responsePromise;
@@ -21,11 +21,11 @@ export const FetchApi = async ({
     if (method === 'get') {
         responsePromise = instance.get(url);
     } else if (method === 'post') {
-        responsePromise = instance.post(url, data);
+        responsePromise = instance.post(url, body);
     } else if (method === 'put') {
-        responsePromise = instance.put(url, data);
+        responsePromise = instance.put(url, body);
     } else if (method === 'patch') {
-        responsePromise = instance.patch(url, data);
+        responsePromise = instance.patch(url, body);
     } else if (method === 'delete') {
         responsePromise = instance.delete(url);
     } else {

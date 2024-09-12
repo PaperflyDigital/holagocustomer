@@ -4,11 +4,14 @@ import OtpInput from '@/components/global/OtpInput';
 import PhoneInput from '@/components/global/PhoneInput';
 import TextInput from '@/components/global/TextInput';
 import TextInputWithButton from '@/components/global/TextInputWithButton';
+import { useAuth } from '@/utils/functions';
 import React, { useState } from 'react'
 import { IoArrowBack } from 'react-icons/io5';
 
 const Profile = () => {
     const [showConfirmPage, setShowConfirmPage] = useState(false);
+    const {auth, setAuth} = useAuth()
+    // setAuth({})
     return (
         <div className='border border-[#EEEEEE] rounded-xl  p-4'>
             {
@@ -18,14 +21,15 @@ const Profile = () => {
                         <p className='text-xl font-medium'>Profile</p>
                         <p className='text-xs text-[#7f7f7f]'>Place to edit your information.</p>
                         <div className='py-3 space-y-2'>
-                            <TextInput label={'Your name'} rounded='full'></TextInput>
+                            <TextInput label={'First name'} rounded='full' value={auth.firstName}></TextInput>
+                            <TextInput label={'Last name'} rounded='full' value={auth.lastName}></TextInput>
                             <div className='flex w-full gap-3 '>
                                 <div className='w-1/2'>
 
                                     <TextInputWithButton buttonText='Change' label={'Email'} rounded='full' />
                                 </div>
                                 <div className='w-1/2'>
-                                    <PhoneInput label={'Phone number'} rounded='full' />
+                                    <PhoneInput  label={'Phone number'} rounded='full' />
                                 </div>
 
                             </div>
