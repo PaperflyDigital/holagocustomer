@@ -14,7 +14,7 @@ import { FetchApi } from "@/utils/FetchApi";
 import { useParams } from "next/navigation";
 import { ImgUrl } from "@/constants/urls";
 import ProductColor from "@/components/store/product/ProductColor";
-const page = () => {
+const Page = () => {
   const pagination = {
     clickable: true,
     renderBullet: function (index, className) {
@@ -115,4 +115,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

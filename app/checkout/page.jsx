@@ -11,7 +11,7 @@ import eliteImg from '@/public/images/ELITE_1.png'
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import TextInputWithButton from '@/components/global/TextInputWithButton';
 
-const page = () => {
+const Page = () => {
     const [open, setopen] = useState(false);
 
     return (
@@ -68,4 +68,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

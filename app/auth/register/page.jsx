@@ -20,7 +20,7 @@ const validateContact = (contact) => {
     else if (phoneRegex.test(sanitizedContact)) return { type: "phone", valid: true, sanitizedContact };
     else return { type: "invalid", valid: false };
 };
-const page = () => {
+const Page = () => {
     const [step, setStep] = useState(0)
     const [phone, setPhone] = useState(null)
     const [otp, setOtp] = useState('')
@@ -106,4 +106,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

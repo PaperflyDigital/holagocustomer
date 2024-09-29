@@ -13,7 +13,7 @@ import Button from '@/components/global/Button'
 import TextInput from '@/components/global/TextInput'
 import TextInputWithButton from '@/components/global/TextInputWithButton'
 
-const page = () => {
+const Page = () => {
     const [open, setopen] = useState(false);
 
     return (
@@ -118,4 +118,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

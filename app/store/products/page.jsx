@@ -7,7 +7,7 @@ import Button from "@/components/global/Button";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-const page = () => {
+const Page = () => {
   const [products, setProducts] = useState([]);
   const queries = useSearchParams();
   useEffect(() => {
@@ -57,4 +57,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
