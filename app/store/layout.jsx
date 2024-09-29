@@ -5,7 +5,7 @@ import NavigationFooter from '@/components/global/navigationFooter'
 import Cart from '@/components/store/Cart'
 import React, { useState } from 'react'
 
-const layout = ({ children }) => {
+const Layout = ({ children }) => {
   const [open, setopen] = useState(false);
   return (
     <div>
@@ -22,4 +22,4 @@ const layout = ({ children }) => {
   )
 }
 
-export default layout
+export default Layout

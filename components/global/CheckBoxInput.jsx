@@ -1,7 +1,7 @@
-import React, { useId } from 'react'
+import React from 'react'
 
 const CheckBoxInput = ({ label, id, name, type = 'text', className, placeholder, ...etc }) => {
-    const randomId = id || useId();
+    const randomId = id || Math.random().toString();
 
     return (
         <div>
