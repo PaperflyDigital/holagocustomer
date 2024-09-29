@@ -56,6 +56,10 @@ const page = () => {
             router.push('/store')
         }
     }
+    const handleResendCode = async() => {
+        await FetchApi({ url: 'auth/api/resendOtp/', method: 'post', body: {phone_number: phone}, isToast: true })
+
+    }
     return (
         <div >
             {
@@ -78,7 +82,7 @@ const page = () => {
                         </div>
                         <div className='flex items-center gap-1 pt-5 justify-center'>
                             Have an account?
-                            <Link href={''} className='text-blue font-medium'>Login here</Link>
+                            <Link href={'/auth/login'} className='text-blue font-medium'>Login here</Link>
                         </div>
                     </div>
                 </div> : step === 1 && <div>
@@ -89,7 +93,7 @@ const page = () => {
                     </div>
                     <Button className={'w-full mt-3'} onClick={handleOtpVerify}>Verify</Button>
                     <div className='flex justify-center'>
-                        <button className='underline text-center mt-2'>Resend Code</button>
+                        <button className='underline text-center mt-2' onClick={handleResendCode}>Resend Code</button>
                     </div>
                     <div className='flex items-center gap-1 pt-5 justify-center'>
                         Still need help?

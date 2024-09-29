@@ -58,6 +58,6 @@ export const loginUser = async (email, password) => {
 }
 export const logoutUser = () => {
   store.dispatch(setAuth({}))
-  window.location = '/login'
+  window.location = '/store'
 
 }
