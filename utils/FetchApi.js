@@ -13,6 +13,9 @@ export const FetchApi = async ({
         // headers: {
         //     'Authorization': `Bearer ${store.getState().auth?.user?.token}`,
         // }
+        headers: {
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI3ODExOTEzLCJpYXQiOjE3MjczNzk5MTMsImp0aSI6IjEyZjE5YzA0ZDJhNjRhMmRiYmQ2YjNkMTgyNzhjMDhjIiwidXNlcl9pZCI6NX0.AHHrKl3ha0a3ekDWkgY0hRWrMgxJtAPyRzdEKc5UPG8`,
+        }
     });
 
     let responsePromise;

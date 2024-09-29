@@ -1,10 +1,11 @@
 import React from 'react'
 import { TiStarFullOutline } from 'react-icons/ti'
 
-const ProductDetails = () => {
+const ProductDetails = ({product}) => {
   return (
     <div>
-         <p className='text-2xl font-semibold'>Men’s Half Sleeve Polo Shirt (PPR0001)</p>
+      
+         <p className='text-2xl font-semibold'>{product?.productName}</p>
           <div className='text-xl text-[#E5B80B] flex items-center gap-1 my-3'>
             <TiStarFullOutline />
             <TiStarFullOutline />
@@ -16,13 +17,14 @@ const ProductDetails = () => {
           </div>
           <div className='flex items-center gap-3 '>
             <p className='font-bold text-2xl'>
-              ৳1400
+              ৳{product?.salePrice}
             </p>
             <p className='font-bold text-[#7A7A7A] text-xl line-through'>
-              ৳2800
+              ৳{product?.regularPrice}
             </p>
             <p className='font-bold text-error text-xl'>
-              50% OFF
+            {(((product?.regularPrice - product?.salePrice) / product?.regularPrice) * 100).toFixed(0)}% OFF
+
             </p>
           </div>
     </div>

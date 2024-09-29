@@ -1,32 +1,16 @@
 import Link from 'next/link'
 import React from 'react'
 
-const ProductSize = () => {
-    const sizes = [
-        {
-          name: 'S',
-        },
-        {
-          name: 'M',
-        },
-        {
-          name: 'XL',
-        },
-        {
-          name: '2XL',
-        },
-        {
-          name: '3XL',
-        },
-      ]
+const ProductSize = ({product, selectedSize, setSelectedSize}) => {
+  
     return (
         <div>
             <div>
                 <p className='text-sm mt-2'>Select Size:</p>
                 <div className='flex gap-2 '>
                     {
-                        sizes.map(item => <div key={item.name}>
-                            <button className='border border-[#CCCCCC] rounded-md w-[50px] py-1.5 text-xs font-semibold'>{item.name}</button>
+                        product.inventory.map(item => <div key={item.barCode}>
+                            <button onClick={() => setSelectedSize(item)} className={`border  rounded-md w-[50px] py-1.5 text-xs font-semibold ${selectedSize.barCode !== item.barCode ? 'border-[#CCCCCC]' : 'bg-black text-white'}`}>{item.size}</button>
                         </div>)
                     }
                 </div>
