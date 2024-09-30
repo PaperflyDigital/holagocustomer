@@ -61,3 +61,11 @@ export const logoutUser = () => {
   window.location = '/store'
 
 }
+
+export const useCart = () => {
+  const cart = useSelector(state => state.cart)
+  return {
+    cart,
+    products: cart.products || []
+  }
+}

@@ -14,6 +14,9 @@ import { FetchApi } from "@/utils/FetchApi";
 import { useParams } from "next/navigation";
 import { ImgUrl } from "@/constants/urls";
 import ProductColor from "@/components/store/product/ProductColor";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, setCart } from "@/redux/slices/CartSlice";
+import { useCart } from "@/utils/functions";
 const Page = () => {
   const pagination = {
     clickable: true,
@@ -24,8 +27,12 @@ const Page = () => {
   const [product, setproduct] = useState({});
   const [selectedSize, setSelectedSize] = useState({});
   const [selectedColor, setSelectedColor] = useState("");
-  const [qty, setqty] = useState(1)
+  const [qty, setqty] = useState(1);
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { cart } = useCart();
+  const {products: cartItems} = useSelector(state => state.cart.cart)
+
   useEffect(() => {
     const loadData = async () => {
       const { data } = await FetchApi({
@@ -37,7 +44,47 @@ const Page = () => {
     };
     loadData();
   }, []);
-  console.log(product.images, ImgUrl);
+  const handleAddToCart = () => {
+    const productToAdd = {
+      product_id: product?.id,
+      quantity: qty,
+      size: selectedSize?.size,
+      color: selectedColor,
+      image: product?.images[0]?.image,
+      productName: product?.productName,
+      salePrice: product?.salePrice,
+      
+    };
+  
+    // Check if the product already exists in the cart
+    const existingProductIndex = cartItems?.findIndex(
+      (item) =>
+        item.product_id === productToAdd.product_id &&
+        item.size === productToAdd.size &&
+        item.color === productToAdd.color
+    );
+  
+    if (existingProductIndex !== -1) {
+      // Product exists, create a new object for the existing product and update its quantity
+      const updatedCartItems = [...cartItems];
+      const updatedProduct = {
+        ...updatedCartItems[existingProductIndex],
+        quantity: updatedCartItems[existingProductIndex].quantity + productToAdd.quantity,
+      };
+      updatedCartItems[existingProductIndex] = updatedProduct;
+  
+      // Dispatch the updated cart
+      dispatch(
+        setCart({
+          products: updatedCartItems,
+        })
+      );
+    } else {
+      // Product doesn't exist, add it to the cart
+      dispatch(addToCart(productToAdd));
+    }
+  };
+  
   return (
     <div className=" container py-16 relative">
       {!product?.id ? (
@@ -57,7 +104,7 @@ const Page = () => {
               modules={[Autoplay, Navigation, Pagination]}
               className="h-auto max-w-[550px] w-full lg:w-2/5 product-image-swiper"
             >
-              {product.images.map((item) => (
+              {product?.images?.map((item) => (
                 <SwiperSlide key={item.id}>
                   <img
                     src={ImgUrl + item.image}
@@ -80,7 +127,12 @@ const Page = () => {
                 setSelectedSize={setSelectedSize}
               />
 
-              <AddToCartSection product={product} qty={qty} setqty={setqty}/>
+              <AddToCartSection
+                product={product}
+                qty={qty}
+                setqty={setqty}
+                handleAddToCart={handleAddToCart}
+              />
               <ProductMoreDetails
                 product={product}
                 selectedSize={selectedSize}
@@ -97,9 +149,7 @@ const Page = () => {
             />
           </div>
           <div>
-            <p className="text-xl font-semibold text-center mt-5">
-              Size Chart
-            </p>
+            <p className="text-xl font-semibold text-center mt-5">Size Chart</p>
             <img
               className="max-w-[800px] mt-3 mx-auto w-full"
               src={ImgUrl + product.sizeCharts}
