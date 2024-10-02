@@ -2,7 +2,7 @@ import { setAuth } from "@/redux/slices/AuthSlice";
 import { useSelector } from "react-redux";
 import { FetchApi } from "./FetchApi";
 import { store } from "@/redux/store";
-
+import countryData from '@/public/data/phoneCountry.json'
 export const refetchAuthState = async (auth) => {
   try {
     const res = await FetchApi({
@@ -68,4 +68,16 @@ export const useCart = () => {
     cart,
     products: cart.products || []
   }
+}
+
+export function getCountryCode(phoneNumber) {
+  if (!phoneNumber?.startsWith('+')) {
+      return '';
+  }
+  for (const country of countryData) {
+      if (phoneNumber?.startsWith(country.phone_code)) {
+          return country.phone_code;
+      }
+  }
+  return 'Country code not found';
 }

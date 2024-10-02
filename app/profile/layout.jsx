@@ -11,22 +11,22 @@ import { PiHandbag } from "react-icons/pi";
 import { FiBox } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { RiShieldKeyholeLine } from "react-icons/ri";
-import { logoutUser } from "@/utils/functions";
+import { logoutUser, useAuth } from "@/utils/functions";
 import { useRouter } from "next/navigation";
 
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [currentScreenItem, setCurrentScreenItem] = useState(0);
+  const {auth} = useAuth()
   const navigations = [
     { icon: <CgProfile />, text: "Profile" },
     { icon: <GoHeart />, text: "Wishlist" },
     { icon: <PiHandbag />, text: "My Order" },
     { icon: <FiBox />, text: "Saved Address" },
-    { icon: <RiShieldKeyholeLine />, text: "Change Password" },
     { icon: <BiLogOut />, text: "Logout" },
   ];
   useEffect(() => {
-    if (currentScreenItem === 5) {
+    if (currentScreenItem === 4) {
       logoutUser();
     }
     const url = new URL(window?.location);
@@ -41,14 +41,14 @@ const Layout = ({ children }) => {
       <div className="py-36 container">
         <div className="flex gap-5 flex-col lg:flex-row">
           <div className="border border-[#EEEEEE] rounded-xl p-4 lg:w-1/4">
-            <p className="text-xs text-[#cccccc]">Welcome back</p>
-            <p className="text-xl font-medium">Safayat Hussain</p>
+            <p className="text-sm">Welcome back</p>
+            <p className="text-xl font-medium">{auth.name}</p>
             <div className="space-y-2 mt-3">
               {navigations.map((item, index) => (
                 <button
                   key={index}
                   className={`flex gap-2 items-center p-3  rounded-xl w-full ${
-                    index === 5 && "text-error"
+                    index === 4 && "text-error"
                   } ${
                     currentScreenItem === index
                       ? "bg-black text-white"

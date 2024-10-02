@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaMinus, FaPlus, FaRegHeart } from 'react-icons/fa'
 
-const AddToCartSection = ({setqty, qty, handleAddToCart}) => {
+const AddToCartSection = ({setqty, qty, handleAddToCart, handleAddWishlist, product}) => {
   return (
     <div>
         <div className='mt-4 flex gap-2'>
@@ -11,7 +11,7 @@ const AddToCartSection = ({setqty, qty, handleAddToCart}) => {
               <button className='p-2.5 rounded-r-md border border-[#cccccc]' onClick={() => setqty(qty + 1)}><FaPlus /></button>
             </div>
             <button className=' py-1.5 rounded-md border border-[#cccccc] font-semibold px-10 hover:bg-black hover:text-white duration-300' onClick={handleAddToCart}>ADD TO CART</button>
-            <button className=' py-1.5 px-2.5 rounded-md border border-[#cccccc] font-semibold text-xl'><FaRegHeart /> </button>
+            <button className=' py-1.5 px-2.5 rounded-md border border-[#cccccc] font-semibold text-xl' onClick={() => handleAddWishlist([product.id])}><FaRegHeart /> </button>
           </div>
     </div>
   )

@@ -16,7 +16,8 @@ import { ImgUrl } from "@/constants/urls";
 import ProductColor from "@/components/store/product/ProductColor";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, setCart } from "@/redux/slices/CartSlice";
-import { useCart } from "@/utils/functions";
+import { useAuth, useCart } from "@/utils/functions";
+import { jwtDecode } from "jwt-decode";
 const Page = () => {
   const pagination = {
     clickable: true,
@@ -25,19 +26,22 @@ const Page = () => {
     },
   };
   const [product, setproduct] = useState({});
+  const [wishlist, setWishlist] = useState([]);
   const [selectedSize, setSelectedSize] = useState({});
   const [selectedColor, setSelectedColor] = useState("");
   const [qty, setqty] = useState(1);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { cart } = useCart();
-  const {products: cartItems} = useSelector(state => state.cart.cart)
-
+  const { products: cartItems } = useSelector((state) => state.cart.cart);
+const {auth} = useAuth()
   useEffect(() => {
     const loadData = async () => {
       const { data } = await FetchApi({
         url: `products/api/get-products/${id}`,
       });
+     
+
       setproduct(data.data);
       setSelectedSize(data.data.inventory[0]);
       setSelectedColor(data.data.color.split(",")[0]);
@@ -53,9 +57,8 @@ const Page = () => {
       image: product?.images[0]?.image,
       productName: product?.productName,
       salePrice: product?.salePrice,
-      
     };
-  
+
     // Check if the product already exists in the cart
     const existingProductIndex = cartItems?.findIndex(
       (item) =>
@@ -63,16 +66,18 @@ const Page = () => {
         item.size === productToAdd.size &&
         item.color === productToAdd.color
     );
-  
+
     if (existingProductIndex !== -1) {
       // Product exists, create a new object for the existing product and update its quantity
       const updatedCartItems = [...cartItems];
       const updatedProduct = {
         ...updatedCartItems[existingProductIndex],
-        quantity: updatedCartItems[existingProductIndex].quantity + productToAdd.quantity,
+        quantity:
+          updatedCartItems[existingProductIndex].quantity +
+          productToAdd.quantity,
       };
       updatedCartItems[existingProductIndex] = updatedProduct;
-  
+
       // Dispatch the updated cart
       dispatch(
         setCart({
@@ -84,7 +89,21 @@ const Page = () => {
       dispatch(addToCart(productToAdd));
     }
   };
-  
+  const handleAddWishlist = async (ids) => {
+    try {
+      const { data } = await FetchApi({
+        url: `/wishlist/api/create_wishlist/`,
+        method: "post",
+        body: {
+          products: ids,
+        },
+      });
+      setWishlist([...wishlist, ...data.data]);
+      setPage("");
+    } catch (error) {
+      console.error("Error adding new address:", error);
+    }
+  };
   return (
     <div className=" container py-16 relative">
       {!product?.id ? (
@@ -128,6 +147,7 @@ const Page = () => {
               />
 
               <AddToCartSection
+                handleAddWishlist={handleAddWishlist}
                 product={product}
                 qty={qty}
                 setqty={setqty}

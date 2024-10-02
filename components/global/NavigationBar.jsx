@@ -3,24 +3,34 @@ import logo from "@/public/images/Logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { FaSearch, FaBars } from "react-icons/fa";
-import { IoSearchOutline } from 'react-icons/io5';
-import { RiHome3Line, RiHome6Line, RiShoppingBag3Line } from 'react-icons/ri';
-import { LuHeart } from 'react-icons/lu';
-import { PiUserCircleLight } from 'react-icons/pi';
+import { IoSearchOutline } from "react-icons/io5";
+import { RiHome3Line, RiHome6Line, RiShoppingBag3Line } from "react-icons/ri";
+import { LuHeart } from "react-icons/lu";
+import { PiUserCircleLight } from "react-icons/pi";
 import { useEffect, useRef, useState } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
 import { useAuth } from "@/utils/functions";
+import { jwtDecode } from "jwt-decode";
 
 export default function NavigationBar({ cartOpen }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
-const {auth} = useAuth()
+  const { auth } = useAuth();
   const routes = [
-    { name: 'Man', url: '/', status: '', statusColor: '' },
-    { name: 'T-Shirts', url: '/', status: 'Just Dropped', statusColor: 'bg-black' },
-    { name: 'Cuban Shirts', url: '/', status: 'Best Selling', statusColor: 'bg-error' },
+    { name: "Man", url: "/", status: "", statusColor: "" },
+    {
+      name: "T-Shirts",
+      url: "/",
+      status: "Just Dropped",
+      statusColor: "bg-black",
+    },
+    {
+      name: "Cuban Shirts",
+      url: "/",
+      status: "Best Selling",
+      statusColor: "bg-error",
+    },
   ];
-
   const NavbarLink = ({ route }) => {
     const [hover, setHover] = useState(false);
     const [renderedText, setRenderedText] = useState("");
@@ -29,8 +39,8 @@ const {auth} = useAuth()
     useEffect(() => {
       if (hover && currentIndex < route.status.length) {
         const timeout = setTimeout(() => {
-          setRenderedText(prev => prev + route.status[currentIndex]);
-          setCurrentIndex(prev => prev + 1);
+          setRenderedText((prev) => prev + route.status[currentIndex]);
+          setCurrentIndex((prev) => prev + 1);
         }, 10);
         return () => clearTimeout(timeout);
       }
@@ -42,29 +52,41 @@ const {auth} = useAuth()
     }, [currentIndex, route.status, hover]);
 
     return (
-      <Link href={route.url} className="flex items-center gap-1"
+      <Link
+        href={route.url}
+        className="flex items-center gap-1"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
         <p>{route.name}</p>
         {route.status && (
-          <div className={`rounded-full ${route.statusColor} ${!hover && 'size-3'}`}>
-            <p className={`text-white text-[11px] px-2 ${hover ? 'block' : 'hidden'} duration-300`}>
+          <div
+            className={`rounded-full ${route.statusColor} ${
+              !hover && "size-3"
+            }`}
+          >
+            <p
+              className={`text-white text-[11px] px-2 ${
+                hover ? "block" : "hidden"
+              } duration-300`}
+            >
               {renderedText.split("").map((letter, i) => (
-                <span key={i} className="animate-rendering">{letter}</span>
+                <span key={i} className="animate-rendering">
+                  {letter}
+                </span>
               ))}
             </p>
           </div>
         )}
       </Link>
     );
-  }
+  };
   const searchInputdivRef = useRef();
   const searchInputRef = useRef();
 
   useClickOutside(searchInputdivRef, () => {
-    setSearchBarOpen(false)
-  })
+    setSearchBarOpen(false);
+  });
   useEffect(() => {
     if (searchBarOpen) {
       searchInputRef.current.focus();
@@ -75,7 +97,6 @@ const {auth} = useAuth()
       <div className="h-[48px] md:h-[60px] bg-[#EBEEEE] fixed top-0 left-0 w-full  z-50">
         <nav className="  transition-colors duration-300 ">
           <div className="container">
-
             <div className="hidden md:flex justify-between items-center py-4 ">
               <div className="flex items-center">
                 <Image src={logo} width={150} height={150} alt="Logo" />
@@ -88,14 +109,25 @@ const {auth} = useAuth()
                 </div>
               </div>
               <div className="flex items-center gap-1 relative">
-                <div ref={searchInputdivRef}>
-                  <input ref={searchInputRef} type="text" name="search" className={`rounded-full absolute bg-white z-[32143] right-36 focus:outline-none top-0 ${searchBarOpen ? 'w-64 px-2.5 py-1' : 'w-0 p-0'} duration-300`} />
-                </div>
+                {searchBarOpen && (
+                  <div className="absolute right-0 h-screen w-screen top-0">
+                    <div ref={searchInputdivRef}>
+                      <input
+                        ref={searchInputRef}
+                        type="text"
+                        name="search"
+                        className={`rounded-full absolute bg-white z-[32143] right-36 focus:outline-none top-0 ${
+                          searchBarOpen ? "w-64 px-2.5 py-1" : "w-0 p-0"
+                        } duration-900`}
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className="flex justify-between items-center gap-3">
                   <button onClick={() => setSearchBarOpen(true)}>
                     <IoSearchOutline size={24} />
                   </button>
-                  <Link href={auth.id ? '/profile': '/auth/login'}>
+                  <Link href={auth.id ? "/profile" : "/auth/login"}>
                     <PiUserCircleLight size={28} />
                   </Link>
                   <Link href="/">
@@ -128,7 +160,13 @@ const {auth} = useAuth()
               </div>
               <div className="flex items-center order-3">
                 <div ref={searchInputdivRef}>
-                  <input ref={searchInputRef} type="text" className={`rounded-full absolute border border-[#CCCCC] bg-white z-[32143] right-5 focus:outline-none top-[50px] ${searchBarOpen ? 'w-64 px-2.5 py-1' : 'w-0 p-0'} duration-300`} />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    className={`rounded-full absolute border border-[#CCCCC] bg-white z-[32143] right-5 focus:outline-none top-[50px] ${
+                      searchBarOpen ? "w-64 px-2.5 py-1" : "w-0 p-0"
+                    } duration-300`}
+                  />
                 </div>
                 <button onClick={() => setSearchBarOpen(true)}>
                   <div className="p-2 border border-gray-800 rounded-full">
@@ -138,16 +176,23 @@ const {auth} = useAuth()
               </div>
             </div>
           </div>
-          <div className={`bg-[#EBEEEE] ${isMenuOpen ? 'mt-0' : '-mt-44'} duration-300`} >
+          <div
+            className={`bg-[#EBEEEE] ${
+              isMenuOpen ? "mt-0" : "-mt-44"
+            } duration-300`}
+          >
             <div className="flex flex-col gap-2 p-5">
               {routes.map((route, i) => (
-                <Link href={'/'} key={i} className="flex items-center gap-2">
+                <Link href={"/"} key={i} className="flex items-center gap-2">
                   <p>{route.name}</p>
-                  <span className={`${route.statusColor} text-white text-[10px] rounded-full px-2`}>{route.status}</span>
+                  <span
+                    className={`${route.statusColor} text-white text-[10px] rounded-full px-2`}
+                  >
+                    {route.status}
+                  </span>
                 </Link>
               ))}
             </div>
-
           </div>
         </nav>
       </div>
