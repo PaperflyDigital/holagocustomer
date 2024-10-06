@@ -104,3 +104,10 @@ export const getDeliveryCharge = (city) => {
     return 100;
   }
 };
+export const getDeliveryDays = (city) => {
+  if (city?.toLowerCase() === "dhaka") {
+    return '1-3';
+  } else {
+    return '3-5';
+  }
+};

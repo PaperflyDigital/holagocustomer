@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
         <div className="flex gap-5 flex-col lg:flex-row">
           <div className="border border-[#EEEEEE] rounded-xl p-4 lg:w-1/4">
             <p className="text-sm">Welcome back</p>
-            <p className="text-xl font-medium">{auth.name}</p>
+            <p className="text-xl font-medium">{auth?.customer?.name}</p>
             <div className="space-y-2 mt-3">
               {navigations.map((item, index) => (
                 <button
