@@ -7,11 +7,20 @@ import Button from "../global/Button";
 import { useCart } from "@/utils/functions";
 import { useDispatch, useSelector } from "react-redux";
 import { ImgUrl } from "@/constants/urls";
-import { decreaseQtyInCart, increaseQtyInCart, removeItemFromCart } from "@/utils/cartFunctions";
+import {
+  decreaseQtyInCart,
+  increaseQtyInCart,
+  removeItemFromCart,
+} from "@/utils/cartFunctions";
+import { useRouter } from "next/navigation";
 
 const Cart = ({ open, setOpen }) => {
-  const { products } = useSelector((state) => state.cart.cart);
+  const { products } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const subtotalSalePrice = products?.reduce((subtotal, product) => {
+    return subtotal + parseFloat(product.total_price);
+  }, 0);
+  const router = useRouter();
   return (
     <div
       className={`fixed overflow-y-scroll top-0 w-full sm:max-w-[350px] z-[999] bg-white h-screen shadow-2xl ${
@@ -24,7 +33,7 @@ const Cart = ({ open, setOpen }) => {
             <p className="flex items-center gap-1">
               Cart{" "}
               <span className="size-6 rounded-full bg-[#F6F6F6] flex justify-center items-center">
-                {products.length}
+                {products?.length}
               </span>
             </p>
             <IoIosCloseCircleOutline
@@ -33,46 +42,41 @@ const Cart = ({ open, setOpen }) => {
               className="cursor-pointer"
             />
           </div>
-          {
-            products.length === 0 && <p className="text-xl text-center mt-10">0 Product added</p>
-          }
-          {products.map((item, i) => (
+          {products?.length === 0 && (
+            <p className="text-xl text-center mt-10">0 Product added</p>
+          )}
+          {products?.map((item, i) => (
             <div
               key={i}
-              className="flex mt-5 gap-3 border border-[#EEEEEE] rounded-xl"
+              className="flex py-3 mt-5 gap-3 border border-[#EEEEEE] rounded-xl"
             >
               <div className="w-2/5">
                 <img
-                  src={ImgUrl + item.image}
+                  src={ImgUrl + item?.product?.images[0]?.image}
                   className="rounded-s-xl object-cover"
                   alt=""
                 ></img>
               </div>
-              <div className="space-y-2 mt-2 text-sm font-medium">
-                <p className="">{item.productName}</p>
-                <p className=" font-semibold">
-                  ৳{item.salePrice * item.quantity}
-                </p>
+              <div className="space-y-2  text-sm font-medium">
+                <p className="">{item?.product?.productName}</p>
+                <p className=" font-semibold">৳{item.total_price}</p>
                 <p>Size: {item.size}</p>
                 <p>Color: {item.color}</p>
                 <div className="flex items-center gap-3">
-                  <Button
-                    size="sm"
-                    onClick={() => decreaseQtyInCart(products, i, 1, dispatch)}
-                  >
+                  <Button size="sm" onClick={() => decreaseQtyInCart(item, 1)}>
                     -
                   </Button>
                   <p>{item.quantity}</p>
-                  <Button
-                    size="sm"
-                    onClick={() => increaseQtyInCart(products, i, 1, dispatch)}
-                  >
+                  <Button size="sm" onClick={() => increaseQtyInCart(item, 1)}>
                     +
                   </Button>
                 </div>
               </div>
               <div className="flex items-center pr-3">
-                <RiDeleteBin6Line size={20} onClick={()=> removeItemFromCart(products, i, dispatch)}/>
+                <RiDeleteBin6Line
+                  size={20}
+                  onClick={() => removeItemFromCart(products, i, dispatch)}
+                />
               </div>
             </div>
           ))}
@@ -80,9 +84,14 @@ const Cart = ({ open, setOpen }) => {
         <div className="space-y-3 mt-10">
           <div className="flex justify-between">
             <p className="font-medium">Subtotal</p>
-            <p className="font-semibold">৳1,400</p>
+            <p className="font-semibold">৳ {subtotalSalePrice}</p>
           </div>
-          <Button className={"w-full !rounded-full"}>Checkout</Button>
+          <Button
+            onClick={() => router.push("/checkout")}
+            className={"w-full !rounded-full"}
+          >
+            Checkout
+          </Button>
         </div>
       </div>
     </div>

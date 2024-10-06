@@ -1,0 +1,23 @@
+[
+    { "name": "Dhaka", "value": "Dhaka" },
+    { "name": "Chattogram", "value": "Chattogram" },
+    { "name": "Khulna", "value": "Khulna" },
+    { "name": "Rajshahi", "value": "Rajshahi" },
+    { "name": "Sylhet", "value": "Sylhet" },
+    { "name": "Barishal", "value": "Barishal" },
+    { "name": "Rangpur", "value": "Rangpur" },
+    { "name": "Comilla", "value": "Comilla" },
+    { "name": "Gazipur", "value": "Gazipur" },
+    { "name": "Narayanganj", "value": "Narayanganj" },
+    { "name": "Mymensingh", "value": "Mymensingh" },
+    { "name": "Jessore", "value": "Jessore" },
+    { "name": "Narsingdi", "value": "Narsingdi" },
+    { "name": "Cox's Bazar", "value": "Cox's Bazar" },
+    { "name": "Bogura", "value": "Bogura" },
+    { "name": "Pabna", "value": "Pabna" },
+    { "name": "Dinajpur", "value": "Dinajpur" },
+    { "name": "Noakhali", "value": "Noakhali" },
+    { "name": "Tangail", "value": "Tangail" },
+    { "name": "Kushtia", "value": "Kushtia" }
+  ]
+  

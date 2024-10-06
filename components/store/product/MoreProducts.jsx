@@ -22,7 +22,7 @@ const MoreProducts = () => {
       <div className="mt-5">
         <div
           // ref={sliderRef}
-          className="md:flex grid grid-cols-2 gap-3 my-5  md:overflow-x-scroll hidden_scrollbar"
+          className="md:flex w-full  grid grid-cols-2 gap-3 my-5  md:overflow-x-scroll hidden_scrollbar"
         >
           {products.map((product) => (
             <Link
@@ -30,11 +30,11 @@ const MoreProducts = () => {
               className="border rounded-md"
               key={product.id}
             >
-              <div className="">
+              <div className=" w-[300px] max-h-[400px]">
                 <img
-                  className=" rounded-md w-[300px] max-h-[500px] object-cover object-center"
-                  src={ImgUrl + product.images[0].image}
-                  alt="earphone"
+                  className=" rounded-md  max-h-[400px] w-full object-cover object-center"
+                  src={ImgUrl + product.images[0]?.image}
+                  alt=""
                 />
               </div>
               <div className="secondary-color p-3">

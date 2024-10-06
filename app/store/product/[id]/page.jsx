@@ -32,15 +32,14 @@ const Page = () => {
   const [qty, setqty] = useState(1);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { cart } = useCart();
+  const { refetchCart, products } = useCart();
   const { products: cartItems } = useSelector((state) => state.cart.cart);
-const {auth} = useAuth()
+  const { auth } = useAuth();
   useEffect(() => {
     const loadData = async () => {
       const { data } = await FetchApi({
         url: `products/api/get-products/${id}`,
       });
-     
 
       setproduct(data.data);
       setSelectedSize(data.data.inventory[0]);
@@ -48,7 +47,7 @@ const {auth} = useAuth()
     };
     loadData();
   }, []);
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const productToAdd = {
       product_id: product?.id,
       quantity: qty,
@@ -62,7 +61,7 @@ const {auth} = useAuth()
     // Check if the product already exists in the cart
     const existingProductIndex = cartItems?.findIndex(
       (item) =>
-        item.product_id === productToAdd.product_id &&
+        item.product?.id === productToAdd.product_id &&
         item.size === productToAdd.size &&
         item.color === productToAdd.color
     );
@@ -77,16 +76,33 @@ const {auth} = useAuth()
           productToAdd.quantity,
       };
       updatedCartItems[existingProductIndex] = updatedProduct;
-
       // Dispatch the updated cart
-      dispatch(
-        setCart({
-          products: updatedCartItems,
-        })
-      );
+      const data = {
+        product_id: product.id,
+        quantity: qty,
+        size: selectedSize.size,
+        color: selectedColor,
+      };
+      await FetchApi({
+        url: `cart/api/cart_manage/${auth?.customer?.id}/update/${product?.id}/`,
+        method: "post",
+        body: data,
+      });
+      refetchCart();
     } else {
       // Product doesn't exist, add it to the cart
-      dispatch(addToCart(productToAdd));
+      const data = {
+        product_id: product.id,
+        quantity: qty,
+        size: selectedSize.size,
+        color: selectedColor,
+      };
+      await FetchApi({
+        url: `cart/api/cart_manage/${auth?.customer?.id}/`,
+        method: "post",
+        body: data,
+      });
+      refetchCart();
     }
   };
   const handleAddWishlist = async (ids) => {

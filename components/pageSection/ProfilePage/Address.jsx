@@ -3,22 +3,32 @@ import { IoArrowBack } from "react-icons/io5";
 import Button from "@/components/global/Button";
 import PhoneInput from "@/components/global/PhoneInput";
 import TextInput from "@/components/global/TextInput";
-
-const AddNewAddress = ({refetch=() => {}, setPage, value = {}, title, onSubmit }) => {
+import SelectInput from "@/components/global/SelectInput";
+import cities from "@/public/data/city.json";
+const AddNewAddress = ({
+  refetch = () => {},
+  setPage,
+  value = {},
+  title,
+  onSubmit,
+}) => {
   const [name, setName] = useState(value.name || "");
   const [phone, setPhone] = useState(value.phone_number || "");
   const [address, setAddress] = useState(value.address || "");
   const [area, setArea] = useState(value.area || "");
+  const [state, setState] = useState(value.state || "");
+  const [city, setCity] = useState(value.city || "");
+  const [street, setStreet] = useState(value.street || "");
+  const [zip_code, setZip_code] = useState(value.zip_code || "");
   const handleSubmit = (e) => {
     e.preventDefault();
     let newAddress;
-    if(!value?.id){
-      newAddress = { name, phone_number: phone, address, area }
-    }else {
-      newAddress = { id: value.id, name, phone_number: phone, address, area }
-
+    if (!value?.id) {
+      newAddress = { name, phone_number: phone, address, area, city, zip_code, state, street };
+    } else {
+      newAddress = { id: value.id, name, phone_number: phone, address, area, city, zip_code, state, street };
     }
-    refetch()
+    refetch();
     onSubmit(newAddress);
   };
   return (
@@ -45,6 +55,7 @@ const AddNewAddress = ({refetch=() => {}, setPage, value = {}, title, onSubmit }
           value={phone}
           onChange={(combinedValue) => setPhone(combinedValue)}
         />
+        <SelectInput value={city} options={cities}  label={"City"} onChange={(e) => setCity(e.target.value)}/>
         <TextInput
           label={"Address"}
           rounded="full"
@@ -56,6 +67,24 @@ const AddNewAddress = ({refetch=() => {}, setPage, value = {}, title, onSubmit }
           rounded="full"
           value={area}
           onChange={(e) => setArea(e.target.value)}
+        />
+        <TextInput
+          label={"Street"}
+          rounded="full"
+          value={street}
+          onChange={(e) => setStreet(e.target.value)}
+        />
+        <TextInput
+          label={"State"}
+          rounded="full"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+        />
+        <TextInput
+          label={"Zip code"}
+          rounded="full"
+          value={zip_code}
+          onChange={(e) => setZip_code(e.target.value)}
         />
         <Button type="submit" className="w-full" rounded="full">
           Save

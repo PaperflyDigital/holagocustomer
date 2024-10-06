@@ -18,7 +18,7 @@ const Page = () => {
     const { auth, setAuth } = useAuth()
     useEffect(() => {
         if (auth?.id) {
-            router.push('/dashboard')
+            // router.push('/dashboard')
         }
     }, [])
     const handleLogin = async () => {
