@@ -27,7 +27,7 @@ const Page = () => {
     const router = useRouter()
     const {setAuth, auth} = useAuth();
     useEffect(() => {
-        if (auth.id) {
+        if (auth?.id) {
             router.push('/store')
         }
     }, [])

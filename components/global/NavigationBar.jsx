@@ -9,13 +9,17 @@ import { LuHeart } from "react-icons/lu";
 import { PiUserCircleLight } from "react-icons/pi";
 import { useEffect, useRef, useState } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
-import { useAuth } from "@/utils/functions";
-import { jwtDecode } from "jwt-decode";
+import { useAuth, useCart, useScreenWidth } from "@/utils/functions";
+import { useRouter, useSearchParams } from "next/navigation";
+import Button from "./Button";
 
 export default function NavigationBar({ cartOpen }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
+  const productsQuery = useSearchParams().get("products");
   const { auth } = useAuth();
+  const router = useRouter();
+  const screenWidth = useScreenWidth();
   const routes = [
     { name: "Man", url: "/", status: "", statusColor: "" },
     {
@@ -35,7 +39,6 @@ export default function NavigationBar({ cartOpen }) {
     const [hover, setHover] = useState(false);
     const [renderedText, setRenderedText] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
-
     useEffect(() => {
       if (hover && currentIndex < route.status.length) {
         const timeout = setTimeout(() => {
@@ -83,7 +86,7 @@ export default function NavigationBar({ cartOpen }) {
   };
   const searchInputdivRef = useRef();
   const searchInputRef = useRef();
-
+const {products: cartItems} = useCart()
   useClickOutside(searchInputdivRef, () => {
     setSearchBarOpen(false);
   });
@@ -98,9 +101,9 @@ export default function NavigationBar({ cartOpen }) {
         <nav className="  transition-colors duration-300 ">
           <div className="container">
             <div className="hidden md:flex justify-between items-center py-4 ">
-              <div className="flex items-center">
+              <Link href="/store" className="flex items-center cursor-pointer">
                 <Image src={logo} width={150} height={150} alt="Logo" />
-              </div>
+              </Link>
               <div>
                 <div className="flex items-center gap-5">
                   {routes.map((route, i) => (
@@ -116,21 +119,45 @@ export default function NavigationBar({ cartOpen }) {
                         ref={searchInputRef}
                         type="text"
                         name="search"
+                        defaultValue={productsQuery}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            router.push(
+                              `/store/products?products=${searchInputRef?.current?.value}`
+                            );
+                          }
+                        }}
                         className={`rounded-full absolute bg-white z-[32143] right-36 focus:outline-none top-0 ${
                           searchBarOpen ? "w-64 px-2.5 py-1" : "w-0 p-0"
                         } duration-900`}
                       />
+                      <Button
+                        onClick={() => {
+                          router.push(
+                            `/store/products?products=${searchInputRef?.current?.value}`
+                          );
+                        }}
+                        size="sm"
+                        rounded="full"
+                        className={` absolute z-[32143] right-36 focus:outline-none top-0`}
+                      >
+                        Search
+                      </Button>
                     </div>
                   </div>
                 )}
                 <div className="flex justify-between items-center gap-3">
-                  <button onClick={() => setSearchBarOpen(true)}>
+                  <button
+                    onClick={() => {
+                      setSearchBarOpen(true);
+                    }}
+                  >
                     <IoSearchOutline size={24} />
                   </button>
-                  <Link href={auth.id ? "/profile" : "/auth/login"}>
+                  <Link href={auth?.id ? "/profile" : "/auth/login"}>
                     <PiUserCircleLight size={28} />
                   </Link>
-                  <Link href="/">
+                  <Link href="/profile?screen=1">
                     <div className="relative">
                       <LuHeart size={23} />
                       <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">
@@ -142,7 +169,7 @@ export default function NavigationBar({ cartOpen }) {
                     <div className="relative">
                       <RiShoppingBag3Line size={24} />
                       <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">
-                        3
+                        {cartItems.length}
                       </div>
                     </div>
                   </button>
@@ -159,16 +186,46 @@ export default function NavigationBar({ cartOpen }) {
                 <Image src={logo} width={100} height={100} alt="Logo" />
               </div>
               <div className="flex items-center order-3">
-                <div ref={searchInputdivRef}>
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    className={`rounded-full absolute border border-[#CCCCC] bg-white z-[32143] right-5 focus:outline-none top-[50px] ${
-                      searchBarOpen ? "w-64 px-2.5 py-1" : "w-0 p-0"
-                    } duration-300`}
-                  />
-                </div>
-                <button onClick={() => setSearchBarOpen(true)}>
+                {searchBarOpen && screenWidth <= 768 && (
+                  <div className="absolute right-0 h-screen w-screen top-0">
+                    <div ref={searchInputdivRef}>
+                      <input
+                        ref={searchInputRef}
+                        type="text"
+                        name="search"
+                        defaultValue={productsQuery}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            router.push(
+                              `/store/products?products=${searchInputRef?.current?.value}`
+                            );
+                          }
+                        }}
+                        className={`rounded-full absolute bg-white z-[32143] right-5 focus:outline-none top-12 border ${
+                          searchBarOpen ? "w-64 px-2.5 py-1" : "w-0 p-0"
+                        } duration-900`}
+                      />
+                      <Button
+                        onClick={() => {
+                          router.push(
+                            `/store/products?products=${searchInputRef?.current?.value}`
+                          );
+                          setSearchBarOpen;
+                        }}
+                        size="sm"
+                        rounded="full"
+                        className={` absolute z-[32143] right-5 focus:outline-none top-12 !py-[7px]`}
+                      >
+                        Search
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                <button
+                  onClick={() => {
+                    setSearchBarOpen(true);
+                  }}
+                >
                   <div className="p-2 border border-gray-800 rounded-full">
                     <FaSearch className="w-2 h-2 text-gray-800" />
                   </div>
@@ -198,13 +255,13 @@ export default function NavigationBar({ cartOpen }) {
       </div>
       <div className=" p-3  w-full fixed bottom-0 z-50">
         <div className="flex justify-between items-center gap-3 bg-[rgba(236,239,239,0.8)] shadow-md backdrop-blur-sm md:hidden  p-4 rounded-full ">
-          <button>
+          <Link href="/store">
             <RiHome6Line size={24} />
-          </button>
-          <Link href="/">
+          </Link>
+          <Link href="/profile?screen=0">
             <PiUserCircleLight size={28} />
           </Link>
-          <Link href="/">
+          <Link href="/profile?screen=1">
             <div className="relative">
               <LuHeart size={23} />
               <div className="bg-black text-white flex items-center justify-center rounded-full leading-none size-3.5 text-[10px] absolute -top-1 -right-1">

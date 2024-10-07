@@ -11,7 +11,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import CheckBoxInput from "@/components/global/CheckBoxInput";
 import Button from "@/components/global/Button";
 import TextInputWithButton from "@/components/global/TextInputWithButton";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FetchApi } from "@/utils/FetchApi";
 import { getDeliveryCharge, getDeliveryDays, useCart } from "@/utils/functions";
 import { ImgUrl } from "@/constants/urls";
@@ -20,6 +20,7 @@ const Page = () => {
   const [open, setopen] = useState(false);
   const [addressData, setAddressData] = useState({});
   const address = useSearchParams().get("address");
+  const router = useRouter()
   const { products } = useCart();
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] =
     useState("digitalPayment");
@@ -35,14 +36,31 @@ const Page = () => {
   const subtotalSalePrice = products?.reduce((subtotal, product) => {
     return subtotal + parseFloat(product.total_price);
   }, 0);
-  const totalPrice = subtotalSalePrice + getDeliveryCharge(addressData?.city);
+  const deliveryCharge = getDeliveryCharge(addressData?.city);
+  const totalPrice = subtotalSalePrice + deliveryCharge;
+  const handleOrder =async () => {
+    const body = {
+      shipping_address_id: Number(address),
+      payment_method: selectedDeliveryMethod,
+      shipping_cost: deliveryCharge,
+      items: products.map((item) => {
+        return {
+          product_id: item?.product?.id,
+          quantity: item?.quantity,
+          size: item?.size,
+          color: item?.color,
+        };
+      }),
+    };
+    await FetchApi({url: `order/api/create-order/`, body: body, method: 'post', isToast: true})
+  };
   return (
     <div className="min-h-screen">
       <NavigationBar cartOpen={setopen} />
       <Cart setOpen={setopen} open={open} />
       <div className="pt-36 container flex flex-col lg:flex-row items-center gap-7 h-full">
         <div className="w-full lg:w-1/2">
-          <IoArrowBack size={30} />
+          <IoArrowBack size={30} onClick={() =>router.back()}/>
           <p className="text-xl my-2 text-black font-medium">
             Shipping Services
           </p>
@@ -63,7 +81,7 @@ const Page = () => {
                 <p>
                   Pathao Courier - {getDeliveryDays(addressData?.city)} Days
                 </p>
-                <p>৳ {getDeliveryCharge(addressData?.city)}</p>
+                <p>৳ {deliveryCharge}</p>
               </div>
               <div className="flex gap-4 items-center mt-2">
                 <Image src={pathao} className="size-12" alt=""></Image>
@@ -100,7 +118,7 @@ const Page = () => {
                 </div>
               )}
             </div>
-            <Button className={"w-full !rounded-full"}>
+            <Button className={"w-full !rounded-full"} onClick={handleOrder}>
               {selectedDeliveryMethod === "cod" ? "Order now" : "Pay now"}
             </Button>
           </div>
@@ -135,7 +153,7 @@ const Page = () => {
             </div>
             <div className="font-medium flex justify-between">
               <p>Delivery</p>
-              <p>৳ {getDeliveryCharge(addressData?.city)}</p>
+              <p>৳ {deliveryCharge}</p>
             </div>
             <div className="font-medium flex justify-between">
               <p>HOLAGO Club Discount</p>

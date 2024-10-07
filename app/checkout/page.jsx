@@ -43,7 +43,7 @@ const Page = () => {
       if (defaultAddress !== null) {
         setselectedAddress(defaultAddress);
       } else{
-        setselectedAddress(options[0].value);  // Ensure it's set after options are available
+        setselectedAddress(options[0]?.value);  // Ensure it's set after options are available
       }
     };
     loadData();
@@ -69,7 +69,7 @@ const Page = () => {
       <Cart setOpen={setopen} open={open} />
       <div className="pt-36 container flex items-center gap-7 h-full flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 ">
-          <IoArrowBack size={30} />
+          <IoArrowBack size={30} onClick={() =>router.back()}/>
           <p className="text-xl my-2 text-black font-medium">Contact Info</p>
           <TextInput
             defaultValue={auth?.customer?.email}

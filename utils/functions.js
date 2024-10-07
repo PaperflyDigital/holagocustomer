@@ -4,6 +4,7 @@ import { FetchApi } from "./FetchApi";
 import { store } from "@/redux/store";
 import countryData from "@/public/data/phoneCountry.json";
 import { setCart } from "@/redux/slices/CartSlice";
+import { useState, useEffect } from 'react';
 export const refetchAuthState = async (auth) => {
   try {
     const { data } = await FetchApi({
@@ -34,7 +35,6 @@ export const refetchCartState = async (auth) => {
     }
   } catch (error) {
     store.dispatch(setCart([]));
-    window.location = "/auth/login";
   }
 };
 
@@ -110,4 +110,19 @@ export const getDeliveryDays = (city) => {
   } else {
     return '3-5';
   }
+};
+export const useScreenWidth = () => {
+  const [screenWidth, setScreenWidth] = useState(0);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return screenWidth;
 };

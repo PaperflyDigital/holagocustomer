@@ -33,7 +33,7 @@ const Page = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { refetchCart, products } = useCart();
-  const { products: cartItems } = useSelector((state) => state.cart.cart);
+  const { products: cartItems = [] } = useSelector((state) => state?.cart);
   const { auth } = useAuth();
   useEffect(() => {
     const loadData = async () => {
@@ -42,7 +42,16 @@ const Page = () => {
       });
 
       setproduct(data.data);
-      setSelectedSize(data.data.inventory[0]);
+      const test = {
+        id: 1,
+        size: "M",
+        quantity: 2323,
+        barCode: "2343222133",
+        available: true,
+        product: 1,
+      };
+      setSelectedSize(test)
+      // setSelectedSize(data.data.inventory[0]);
       setSelectedColor(data.data.color.split(",")[0]);
     };
     loadData();

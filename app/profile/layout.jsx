@@ -12,11 +12,12 @@ import { FiBox } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { RiShieldKeyholeLine } from "react-icons/ri";
 import { logoutUser, useAuth } from "@/utils/functions";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const [currentScreenItem, setCurrentScreenItem] = useState(0);
+  const screenQuery = useSearchParams().get('screen')
+  const [currentScreenItem, setCurrentScreenItem] = useState(Number(screenQuery) || 0);
   const {auth} = useAuth()
   const navigations = [
     { icon: <CgProfile />, text: "Profile" },
@@ -33,7 +34,11 @@ const Layout = ({ children }) => {
     url.searchParams.set("screen", currentScreenItem);
     window.history.replaceState({}, "", url);
   }, [currentScreenItem]);
-
+  useEffect(() => {
+   if (Number(screenQuery) !== currentScreenItem) {
+    setCurrentScreenItem(Number(screenQuery))
+   }
+  }, [screenQuery]);
   return (
     <div>
       <NavigationBar cartOpen={setOpen} />

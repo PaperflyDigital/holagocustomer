@@ -23,7 +23,7 @@ const Cart = ({ open, setOpen }) => {
   const router = useRouter();
   return (
     <div
-      className={`fixed overflow-y-scroll top-0 w-full sm:max-w-[350px] z-[999] bg-white h-screen shadow-2xl ${
+      className={`fixed overflow-y-scroll top-0 w-full sm:max-w-[400px] z-[999] bg-white h-screen shadow-2xl ${
         open ? "right-0" : "-right-[700px] sm:-right-[500px]"
       } duration-300`}
     >
@@ -48,16 +48,14 @@ const Cart = ({ open, setOpen }) => {
           {products?.map((item, i) => (
             <div
               key={i}
-              className="flex py-3 mt-5 gap-3 border border-[#EEEEEE] rounded-xl"
+              className="flex  mt-5 gap-3 border border-[#EEEEEE] rounded-xl"
             >
-              <div className="w-2/5">
-                <img
-                  src={ImgUrl + item?.product?.images[0]?.image}
-                  className="rounded-s-xl object-cover"
-                  alt=""
-                ></img>
-              </div>
-              <div className="space-y-2  text-sm font-medium">
+              <img
+                src={ImgUrl + item?.product?.images[0]?.image}
+                className="rounded-s-xl w-2/5 object-cover"
+                alt=""
+              ></img>
+              <div className="space-y-2 py-2 text-sm font-medium">
                 <p className="">{item?.product?.productName}</p>
                 <p className=" font-semibold">৳{item.total_price}</p>
                 <p>Size: {item.size}</p>
@@ -72,7 +70,7 @@ const Cart = ({ open, setOpen }) => {
                   </Button>
                 </div>
               </div>
-              <div className="flex items-center pr-3">
+              <div className="flex items-center pr-3 ml-auto">
                 <RiDeleteBin6Line
                   size={20}
                   onClick={() => removeItemFromCart(products, i, dispatch)}

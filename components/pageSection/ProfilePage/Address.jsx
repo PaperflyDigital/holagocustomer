@@ -17,7 +17,7 @@ const AddNewAddress = ({
   const [address, setAddress] = useState(value.address || "");
   const [area, setArea] = useState(value.area || "");
   const [state, setState] = useState(value.state || "");
-  const [city, setCity] = useState(value.city || "");
+  const [city, setCity] = useState(value.city || cities[0]?.value ||"");
   const [street, setStreet] = useState(value.street || "");
   const [zip_code, setZip_code] = useState(value.zip_code || "");
   const handleSubmit = (e) => {
